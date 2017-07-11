@@ -1,0 +1,8 @@
+*.pyc
+.#*
+*~
++.dropbox
+.idea
+.RData
+junk.py
+TestFiles/
