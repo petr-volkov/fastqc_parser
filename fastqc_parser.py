@@ -1,5 +1,6 @@
 from fastqc_html_parser import FastqcHTMLParser
 from fastqc_zipfile import FastqcZipFile
+from fastqc_summary_parser import FastqcSummaryParser
 
 
 __author__ = 'med-pvo'
@@ -7,11 +8,12 @@ __author__ = 'med-pvo'
 
 class FastQCReportParser:
     def __init__(self, zip_file_path):
-        print("Initiating fastqc parser")
         fastqc_zip_file = FastqcZipFile(zip_file_path)
         html = fastqc_zip_file.report_html
+        summary_paser = FastqcSummaryParser(fastqc_zip_file.summary_txt)
         html_parser = FastqcHTMLParser(html)
         fastqc_zip_file.close()
+
 
         ##setup image tags
         self.__per_base_sequence_quality_img_tag = html_parser.per_base_sequence_quality_img_tag
@@ -61,3 +63,6 @@ class FastQCReportParser:
 
 if __name__ == "__main__":
     report = FastQCReportParser("TestFiles/17_ACAGTG_L003_R1_001_val_1.fq_fastqc.zip")
+    zipfile = FastqcZipFile("TestFiles/17_ACAGTG_L003_R1_001_val_1.fq_fastqc.zip")
+    summary_paser = FastqcSummaryParser(zipfile.summary_txt)
+    print(summary_paser.passed_kmer_content())

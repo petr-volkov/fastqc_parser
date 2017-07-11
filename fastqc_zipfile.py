@@ -22,7 +22,8 @@ class FastqcZipFile():
 
     @property
     def summary_txt(self):
-        return self.extract_file_from_zip("fastqc_data.txt")
+        return self.extract_file_from_zip("summary.txt")
+
 
     def list_files(self):
         return [zipinfo.filename for zipinfo in self.zip_file_handler.filelist]
