@@ -10,23 +10,30 @@ class FastQCReportParser:
     def __init__(self, zip_file_path):
         fastqc_zip_file = FastqcZipFile(zip_file_path)
         html = fastqc_zip_file.report_html
-        summary_paser = FastqcSummaryParser(fastqc_zip_file.summary_txt)
-        html_parser = FastqcHTMLParser(html)
+        self.__summary_paser = FastqcSummaryParser(fastqc_zip_file.summary_txt)
+        self.__html_parser = FastqcHTMLParser(html)
         fastqc_zip_file.close()
 
-
         ##setup image tags
-        self.__per_base_sequence_quality_img_tag = html_parser.per_base_sequence_quality_img_tag
-        self.__per_tile_sequence_quality_img_tag = html_parser.per_tile_sequence_quality_img_tag
-        self.__per_sequence_quality_scores_img_tag = html_parser.per_sequence_quality_scores_img_tag
-        self.__per_sequence_quality_graph_img_tag = html_parser.per_sequence_quality_graph_img_tag
-        self.__per_sequence_gc_content_img_tag = html_parser.per_sequence_gc_content_img_tag
-        self.__per_base_n_content_img_tag = html_parser.per_base_n_content_img_tag
-        self.__sequence_duplication_levels_img_tag = html_parser.sequence_duplication_levels_img_tag
-        self.__sequence_length_distribution_img_tag = html_parser.sequence_length_distribution_img_tag
-        self.__overrepresented_sequences_img_tag = html_parser.overrepresented_sequences_img_tag
-        self.__adapter_graph_img_tag = html_parser.adapter_graph_img_tag
-        self.__kmer_content_img_tag = html_parser.kmer_content_img_tag
+        self.__per_base_sequence_quality_img_tag = self.html_parser.per_base_sequence_quality_img_tag
+        self.__per_tile_sequence_quality_img_tag = self.html_parser.per_tile_sequence_quality_img_tag
+        self.__per_sequence_quality_scores_img_tag = self.html_parser.per_sequence_quality_scores_img_tag
+        self.__per_sequence_quality_graph_img_tag = self.html_parser.per_sequence_quality_graph_img_tag
+        self.__per_sequence_gc_content_img_tag = self.html_parser.per_sequence_gc_content_img_tag
+        self.__per_base_n_content_img_tag = self.html_parser.per_base_n_content_img_tag
+        self.__sequence_duplication_levels_img_tag = self.html_parser.sequence_duplication_levels_img_tag
+        self.__sequence_length_distribution_img_tag = self.html_parser.sequence_length_distribution_img_tag
+        self.__overrepresented_sequences_img_tag = self.html_parser.overrepresented_sequences_img_tag
+        self.__adapter_graph_img_tag = self.html_parser.adapter_graph_img_tag
+        self.__kmer_content_img_tag = self.html_parser.kmer_content_img_tag
+
+    @property
+    def summary_parser(self):
+        return self.__summary_paser
+
+    @property
+    def html_parser(self):
+        return self.__html_parser
 
     def per_base_sequence_quality_img_tag(self):
         return self.__per_base_sequence_quality_img_tag
